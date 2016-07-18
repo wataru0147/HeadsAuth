@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @appointment.date %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @appointment.hour %>  :   <%= @appointment.minute %>
+</p>
+<p>
+<strong> Services to be Availed </strong>
+<ul>
+ <% @appointment.categorizations.each do |cat|  %>
+  
+  <li><%=  cat.category.name %></li>
+    
+ 
+ <% end %>
+
+  </ul>
+
+</p>
+   
+
+<p>
+  <strong>Status:</strong>
+  <% if @appointment.approved_app?%>
+    Approved
+  <% else %>
+    Waiting for Confirmation
+  <% end %>
+</p>
+
+<% if @appointment.user.guest? %>
+<p>
+  <strong>Contact Number:</strong>
+  <%= @appointment.contact_number %>
+
+</p>
+	
+<% end %>
+    <% if current_user.admin? || current_user.staff? %>
+      <p>
+      <strong> Contact info: </strong>
+      <%= @appointment.user.contact_number %> /  <%= @appointment.contact_number %>
+      </p>
+        <% if @appointment.approved_app?%>
+        <p>
+            <%= link_to "Marked as Approved", approved_appointment_path(@appointment.id), method: :patch, data: {confirm: "Are you Sure you want to mark appointment Approved??"},class: "btn btn-primary disabled" %>
+        <% else %>
+            <%= link_to "Mark as Approved", approved_appointment_path(@appointment.id), method: :patch, data: {confirm: "Are you Sure you want to mark appointment Approved??"},class: "btn btn-primary" %>
+        <% end %>
+
+    </p>
+    <% end %>
+<% if current_user.admin? || current_user.staff? %>
+<%= link_to 'Edit', edit_appointment_path(@appointment) %> 
+<% end %>
+<%= link_to 'Back', appointments_path %>

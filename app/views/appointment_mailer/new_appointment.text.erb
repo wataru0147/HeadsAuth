@@ -1,0 +1,7 @@
+
+
+A new Appointment has been scheduled by <%= @appointment.user.first_name %> with email <%= @appointment.user.email %>
+
+Pls call (<%= @appointment.user.try(:contact_number) %>) or (<%= @appointment.contact_number %>) to confirm the appointment and dont forget to update the appointment if the appointment has been confirmed.
+
+<%= appointment_url(@appointment) %>

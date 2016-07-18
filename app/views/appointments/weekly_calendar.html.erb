@@ -1,0 +1,63 @@
+
+<div class="well" %>
+<li><%= link_to 'Monthly Calendar', appointments_monthly_calendar_path %></li>
+<li><%= link_to 'Weekly Calendar', appointments_weekly_calendar_path %></li>
+<li><%= link_to 'Appointments Home', appointments_path %></li>
+
+</div>
+  <!-- start of calender -->
+    <div class="container">
+    <section id="Calendar">
+
+        <h3> Weekly Calendar </h3>
+        <%= link_to 'Current Week', appointments_weekly_calendar_path, class: 'btn btn-default' %><br>
+        <% start_date = params.fetch(:start_date, Date.today).to_date %>
+        <% date_range = (start_date.beginning_of_week..start_date.end_of_week).to_a %>
+        <%= link_to 'Previous Week', start_date: date_range.first - 1.day, class: 'btn btn-default' %> ||
+        <%= link_to 'Next Week', start_date: date_range.last + 1.day, class: "btn btn-default" %>
+        <%= link_to 'Book Appointment', new_appointment_path, class: "btn btn-default", style: "float:right;" %>
+            <h3><%= I18n.t("date.month_names")[start_date.month] %> <%= start_date.year %></h3>
+            <table class="table table-hover"> 
+            
+              
+          
+              <thread>
+                <tr>  
+                  <% date_range.slice(0, 7 ).each do |day| %>
+                    
+                    <th class="week_day"><%= day.strftime("%B %d") %><br> <%= I18n.t("date.day_names")[day.wday]%>
+                       
+                    </th>
+
+                  <% end %>
+                </tr>
+              </thread>
+              <tbody>
+                <% date_range.each_slice(7) do |week| %>
+                  <tr>
+                  <% week.each do |day| %>
+                   <td class="date_number">
+                  
+                        <!--matching of the appointment date and the calendar-->
+                       
+                         
+                                <% @appointments.select{ |m| m.date == day }.each do |appointment| %>
+                                   <div id="appointmentlinks"><%= appointment.try(:date).strftime("%B %d") %> <%= link_to appointment.try(:hour), appointment%> </div>
+                                <% end %>
+                         
+                      
+                   </td>
+                  <% end %>
+                </tr>
+                <% end %>
+              </tbody>
+            </table> <%= @appointments.count %>
+            
+    </section>
+
+
+    </div>
+       
+
+    </table>
+    <!-- end of calendar -->

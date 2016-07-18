@@ -1,0 +1,12 @@
+
+
+<p>
+	Your Appointment has been on <%= @appointment.date.strftime(" %B-%d-%Y") %> has been approved.
+</p>
+<p>
+Pls Contact us if you have questions.
+</p>
+
+<%= link_to  @appointment.date.strftime(" %B-%d-%Y")  , @appointment %>
+
+</p>

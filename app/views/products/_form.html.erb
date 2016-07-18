@@ -1,0 +1,16 @@
+<%= simple_form_for(@product) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :price %>
+    <%= f.input :product_image, as: :file %>
+    <%= f.input :description %>
+    <%= f.association :brand %>
+    <%= f.input :published %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

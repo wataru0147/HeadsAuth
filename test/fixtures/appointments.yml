@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2016-07-11
+  hours: MyString
+  minutes: MyString
+  approved: false
+  user_id: 
+
+two:
+  date: 2016-07-11
+  hours: MyString
+  minutes: MyString
+  approved: false
+  user_id: 
