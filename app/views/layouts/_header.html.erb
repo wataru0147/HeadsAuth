@@ -31,9 +31,9 @@
                      <% if current_user %>
                        <li> Logged in as <%= current_user.email_loggedin %>.</li>
                         <% if current_user.guest? %>
-                          <%= link_to "Become a Member", sign_up_path %>
+                          <li><%= link_to "Become a Member", sign_up_path %></li>
                         <% else %>
-                          <%= link_to "Log out", log_out_path %>
+                         <li> <%= link_to "Log out", log_out_path %></li>
                         <% end %>
 
 
