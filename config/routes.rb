@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   
-  get 'account_activations/edit'
+  #get 'account_activations/edit'
 
   #resources :products
   #resources :brands
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   
   resources :users
   resources :sessions
-  resources :account_activations, only: [:edit]
+  #resources :account_activations, only: [:edit]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
