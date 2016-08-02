@@ -2,18 +2,14 @@
 
 <p id="notice"><%= notice %></p>
 <% if current_user.admin? || current_user.staff? %>
-<div class="well" %>
-<%= link_to 'New Appointment ', new_appointment_path, class: "btn btn-default", style: "float: right" %>
-<li><%= link_to 'Monthly Calendar', appointments_monthly_calendar_path %></li>
-<li><%= link_to 'Weekly Calendar', appointments_weekly_calendar_path %></li>
-<li><%= link_to 'Appointments Home', appointments_path %></li>
-</div>
+<%= render 'calendar_toggle' %>
 
   <div class="panel">
   <div class="panel panel-info">
   <div class="panel-heading">
     <h3>Unapproved Appointments</h3>
     </div>
+
     <div class="panel-body">
     <div class="table-responsive">
     <table class="table table-striped">
@@ -31,7 +27,7 @@
       <tbody>
         <% @appointments.select{ |m| m.approved != true }.each do |appointment| %>
           <tr>
-            <td><%= appointment.date.strftime("%B %d") %></td>
+            <td><%= appointment.try(:date) %></td>
             <td><%= appointment.hour %></td>
             <td><%= appointment.minute %></td>
             <td><%= appointment.user.try(:first_name) %></td>
@@ -45,11 +41,14 @@
     </table>
     </div>
     </div>
-    <div class="panel-group">
-    <div class="panel panel-primary">
-    <div class="panel-heading">
-       <h3>Approved Appointments Today</h3>
     </div>
+    </div>
+    <div class="panel-group">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+           <h3>Approved Appointments Today</h3>
+        </div>
+
     <div class="panel-body">
     <div class="table-responsive">
     <table class="table table-striped">
@@ -82,11 +81,15 @@
       </tbody>
     </table>
     </div>
+</div></div>
+    </div>
     <br>
 
-    <%= link_to 'New Appointment', new_appointment_path %>
+    <%= link_to 'New Appointment', new_appointment_path, class: "btn btn-default"  %>
 
 <% else %>
+
+<!-- list of appointments for each user -->
 <h1>Appointments</h1>
 
 
@@ -102,7 +105,7 @@
               <p><strong>Date: <%= appointment.date.strftime(" %B-%d-%Y") %></p>
               <p>Time:  <%= appointment.hour %>:<%= appointment.minute %></p>
               <p>User: <%= appointment.user.first_name %></p>
-              <p>Services: <%= appointment.category.name %></p>
+            
              
                 
 
@@ -131,13 +134,12 @@
               <p><strong>User:</strong> <%= appointment.user.first_name %></p>
               
                <%= link_to 'Show', appointment %>
-                  <% if can? :update, Appointment %> 
+                
 
                   <%= link_to 'Edit', edit_appointment_path(appointment) %>
-                  <% end %>
-                  <% if can? :destroy, Appointment %>
+                
                   <%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %>
-                  <% end %>
+                
                <hr>
                <% end %>
                <% end %>

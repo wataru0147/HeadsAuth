@@ -1,12 +1,10 @@
 
-<div class="well" %>
-<li><%= link_to 'Monthly Calendar', appointments_monthly_calendar_path %></li>
-<li><%= link_to 'Weekly Calendar', appointments_weekly_calendar_path %></li>
-<li><%= link_to 'Appointments Home', appointments_path %></li>
-
-</div>
+<%= render 'calendar_toggle' %>
   <!-- start of calender -->
+
+
     <div class="container">
+      <div class="well">
     <section id="Calendar">
 
         <h3> Weekly Calendar </h3>
@@ -21,8 +19,9 @@
             
               
           
-              <thread>
+              <thead>
                 <tr>  
+                  <th> Time </th>
                   <% date_range.slice(0, 7 ).each do |day| %>
                     
                     <th class="week_day"><%= day.strftime("%B %d") %><br> <%= I18n.t("date.day_names")[day.wday]%>
@@ -31,7 +30,7 @@
 
                   <% end %>
                 </tr>
-              </thread>
+              </thead>
               <tbody>
                 <% date_range.each_slice(7) do |week| %>
                   <tr>
@@ -56,8 +55,11 @@
     </section>
 
 
-    </div>
+
        
 
     </table>
+        </div>
+        </div>
+    </div>
     <!-- end of calendar -->

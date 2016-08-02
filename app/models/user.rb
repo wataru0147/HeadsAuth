@@ -4,10 +4,25 @@ class User < ActiveRecord::Base
   #before_save { self.email = email.downcase! }
   before_save :password_digest
   has_many :appointments, :dependent => :destroy
-  
-  attr_accessor :password
-  
+  #before_save :email_downcase
+  before_create :create_activation_digest
 
+  attr_accessor :password, :activation_token
+  
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+  
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
   has_secure_password(validations: false)
 
 
@@ -56,5 +71,12 @@ class User < ActiveRecord::Base
     appointments.update_all(user_id: user.id)
   end
 
+  private
+    def create_activation_digest
+        self.activation_token = User.new_token
+        self.activation_digest = User.digest(activation_token)
+    end 
+
+    
 
 end

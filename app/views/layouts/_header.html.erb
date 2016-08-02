@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
       <li><%= link_to "About", home_about_path %></li>
-        <%= render 'layouts/brandsnavbar' %>
+     
  
         <li><%= link_to "Calendar & Appointments", appointments_path %></li>
    
@@ -29,7 +29,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
            <ul class="dropdown-menu">
                      <% if current_user %>
-                        Logged in as <%= current_user.email_loggedin %>.
+                       <li> Logged in as <%= current_user.email_loggedin %>.</li>
                         <% if current_user.guest? %>
                           <%= link_to "Become a Member", sign_up_path %>
                         <% else %>
@@ -38,8 +38,12 @@
 
 
                       <% else %>
-                        <%= link_to "Sign up", sign_up_path %> or
-                        <%= link_to "log in", log_in_path %>
+                       <li> <%= link_to "Sign up", sign_up_path %> </li>
+                        <li><%= link_to "Log In", log_in_path %></li>
+                        <% if current_user.nil? %>
+
+    <li><%= link_to "Book Appointment as A Guest", users_path, method: :post %> </li>
+<% end %> 
                       <% end %>
                 </ul>
         </li>

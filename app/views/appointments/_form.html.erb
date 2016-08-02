@@ -19,18 +19,20 @@
   </div>
   <h3>Time</h3>
   <div id="time-div">
-    <%= f.input :hour, collection: 9..18, label: false %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+    <%= f.input :hour, collection: 9..18, label: false %>&nbsp;&nbsp; : &nbsp;&nbsp;
     <%= f.input :minute, collection: ['00','15','30','45'], label: 
     false %>  
   </div>
   <div class="form-inputs">
    <%= f.association :categories, :as => :check_boxes, label: "Services To Be Availed" %>
    </div> 
-  
-      <%= f.input :contact_number, required: true %>
+
+      <%= f.input :contact_number, required: true, :as => :hidden %>
   
    <% if current_user.staff == true ||current_user.admin == true %>
+      <%= f.association :user, :label_method => :email, :value_method => :id %>
       <%= f.input :approved %>
+      <%= f.input :note %>
       <% end %>
   <div class="form-actions">
     <%= f.button :submit %>

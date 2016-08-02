@@ -66,7 +66,11 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/1/edit
   def edit
-    if @appointment.user_id == current_user.id
+    if @appointment.user_id == current_user.id && current_user.admin == false && current_user.staff == false
+      if @appointment.approved?
+        redirect_to appointments_path
+        flash[:notice] = "Cannot edit approved appointments, Please Contact staff for changes"
+      end
     elsif  current_user.admin? || current_user.staff?
 
     else
@@ -81,7 +85,7 @@ class AppointmentsController < ApplicationController
     #CarsTodoMailer.ready_for_pickup(@appointment).deliver
     if current_user.admin? || current_user.staff?
       @appointment.update_attribute(:approved, true)
-      AppointmentMailer.approved_appointment(@appointment).deliver_now
+      AppointmentMailer.approved_appointment(@appointment).deliver_later
       redirect_to @appointment, notice: "Appointment has been approved."
     else 
       redirect_to root_path
@@ -91,20 +95,25 @@ class AppointmentsController < ApplicationController
   # POST /appointments
   # POST /appointments.json
   def create
-  
+    if current_user.admin == true
+        @appointment = Appointment.new(appointment_params)
+        @appointment.save(validate: false)
+        redirect_to @appointment, notice: 'Appointment was successfully created.'
+    else
 
-    
-    @appointment = current_user.appointments.build(appointment_params)
+      
+      @appointment = current_user.appointments.build(appointment_params)
 
-    respond_to do |format|
-      if @appointment.save
-        @appointment.contact_number = current_user.contact_number
-        AppointmentMailer.new_appointment(@appointment).deliver_now
-        format.html { redirect_to @appointment, notice: 'Appointment was successfully created.' }
-        format.json { render :show, status: :created, location: @appointment }
-      else
-        format.html { render :new }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @appointment.save
+          @appointment.contact_number = current_user.contact_number
+          AppointmentMailer.new_appointment(@appointment).deliver_later
+          format.html { redirect_to @appointment, notice: 'Appointment was successfully created.' }
+          format.json { render :show, status: :created, location: @appointment }
+        else
+          format.html { render :new }
+          format.json { render json: @appointment.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -135,10 +144,16 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/1.json
   def destroy
     @appointment = current_user.appointments.find(params[:id])
-    @appointment.destroy
-    respond_to do |format|
-      format.html { redirect_to appointments_url, notice: 'Appointment was successfully destroyed.' }
-      format.json { head :no_content }
+    if @appointment.approved? && current_user.admin == false && current_user.staff == false
+        redirect_to @appointment, notice: "Appointment that has been approved cannot be deleted, please contact staff/admin to delete."
+
+
+    else 
+      @appointment.destroy
+        respond_to do |format|
+          format.html { redirect_to appointments_url, notice: 'Appointment was successfully destroyed.' }
+          format.json { head :no_content }
+        end
     end
   end
 
@@ -154,7 +169,7 @@ class AppointmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
  
     def appointment_params
-      params.require(:appointment).permit(:date, :hour, :minute, :user_id, :approved,:current_user ,:contact_number,:category_ids => [])
+      params.require(:appointment).permit(:date, :hour, :minute, :user_id, :approved,:current_user ,:contact_number, :note, :category_ids => [])
     end
 
     # def save_contact_number

@@ -366,3 +366,83 @@ and (max-device-width : 568px) {
     left: 11%;
     }
 }
+
+/* ===================================================================
+  #Footer Section
+=================================================================== */
+.footer-section {
+  background: #333333;
+  background: rgba(0, 0, 0, 0.8);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+    .copyrights{
+        align-self: center;
+    }
+   .product_partners {
+        float: right;
+        margin-right: 5rem;
+            img{
+        max-height: 3rem;
+  
+    }
+}
+}
+.footer-section.static {
+  position: static;
+}
+.supersized-active .footer-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.copyrights {
+  color: #909090;
+  font-size: 14px;
+  float: center;
+
+  font-weight: normal;
+}
+.copyrights p {
+  margin-bottom: 0;
+  float: inherit;
+
+}
+
+/* for bedheads icon */
+
+
+
+
+
+ul.footer > li.partnericons{
+  display: inline !important;
+}
+
+li.partnericons {
+  img {
+    max-height: 2rem;
+
+  }
+  p.copyrightss {
+    display: inline;
+    margin-left: 38% !important;
+}
+}
+
+li.partnericons{
+
+   display: inline !important;
+  margin-right: 2rem;
+}
+
+p.introtoicons {
+    display: inline;
+    margin-left: 7%;
+}

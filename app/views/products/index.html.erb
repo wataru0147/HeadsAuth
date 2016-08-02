@@ -3,11 +3,11 @@
 
 
 
-
+<% if current_user %>
       <% if current_user.admin?  %>
           <%= link_to 'Add New Offered Product', new_product_path, class: "btn btn-default", style: "float:right;" %>
       <%end %>
-
+<% end %>
   <% if @products.empty? %>
 
   <% else %>

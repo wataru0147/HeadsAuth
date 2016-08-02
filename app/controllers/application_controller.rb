@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
 	end
 
 
+	def admin 
+		@current_user.admin == true
+	end
+
+
 	# def non_guest 
 	# 	@current_user.guest == false || @current_user.guest == nil
 	# end

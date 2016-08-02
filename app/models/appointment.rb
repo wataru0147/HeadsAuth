@@ -16,8 +16,8 @@ class Appointment < ActiveRecord::Base
 	# end
 
 	#scopes
-  	scope :unapprovedd, -> { where(approved: nil)} 
-  	scope :unapproveddd, ->{ where(approved: false)}
+  	# scope :unapprovedd, -> { where(approved: nil)} 
+  	scope :unapprovedd, ->{ where(approved: false)}
   	scope :approvedd, -> { where(approved: true ) }
   	scope :valid, -> { where("date >= ?", Date.current ) }
 

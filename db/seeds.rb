@@ -5,19 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-brands = Brand.create([{ name: 'BedHeads', description: 'Hair Products'}, 
-					   { name: 'Davines', description:'Hair Products'}
+brands = Brand.create([{ name: 'BedHeads', description: 'Hair Products', published: true}, 
+					   { name: 'Davines', description:'Hair Products', published: true}
 					   ])
 
 
-categories = Category.create([{ name: 'Haircut' 			, description: ''}, 
-							  { name: 'Tint/Color'			, description: ''},
-							  { name: 'Classic Highlights'	, description: ''},
-							  { name: 'Partial Foils'		, description: ''},
-							  { name: 'Perm'				, description: ''},
-							  { name: 'Straightening' 		, description: ''},
-							  { name: 'Treatment'			, description: ''},
-							  { name: 'Hair And Makeup'		, description: ''},
-							  { name: 'Nails'				, description: ''},
+categories = Category.create([{ name: 'Hair Cut' 			, description: ''}, 
+							  { name: 'Hair Color'			, description: ''},
+							  { name: 'Nails, Hands and Feet'	, description: ''},
+							  { name: 'Wigs'		, description: ''},
+							  { name: 'Products'				, description: ''},
 							  { name: 'Others'				, description: ''}
 							  	])
