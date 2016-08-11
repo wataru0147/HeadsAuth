@@ -319,6 +319,7 @@ ul
     top: 50%;
     left: 30%;
     }
+
 }
 
 @media only screen and (max-width: 1280px) {
@@ -327,6 +328,10 @@ ul
     font-size: 3rem;
     top: 50%;
     left: 45%;
+    }
+  p.copyrightss {
+    display: inline;
+    margin-left: none !important;
     }
 }
 
@@ -337,6 +342,10 @@ ul
     top: 65%;
     left: 50%;
     }
+  p.copyrightss {
+    display: inline;
+    margin-left: none !important;
+    }
 }
 
 @media only screen 
@@ -345,6 +354,10 @@ and (max-device-width : 568px) {
   #website_tagline {
     font-size: 15rem;
     }
+  p.copyrightss {
+    display: inline;
+    margin-left: none !important;
+    }
 }
 
 @media only screen and (max-width: 768) {
@@ -352,6 +365,10 @@ and (max-device-width : 568px) {
       display: block;
       max-width: 13rem;
   }
+  p.copyrightss {
+    display: inline;
+    margin-left: none !important;
+    }
 }
 
 
@@ -365,6 +382,11 @@ and (max-device-width : 568px) {
     top: 65%;
     left: 11%;
     }
+  p.copyrightss {
+    display: inline;
+    margin-left: none !important;
+    }
+
 }
 
 /* ===================================================================
@@ -402,37 +424,33 @@ and (max-device-width : 568px) {
   right: 0;
 }
 
-.copyrights {
-  color: #909090;
-  font-size: 14px;
-  float: center;
 
-  font-weight: normal;
-}
-.copyrights p {
-  margin-bottom: 0;
-  float: inherit;
 
-}
 
 /* for bedheads icon */
 
 
 
 
-
+p.introtoicons {
+    display: inline;
+    float: right;
+  
+}
 ul.footer > li.partnericons{
   display: inline !important;
 }
 
 li.partnericons {
   img {
+    display: inline;
     max-height: 2rem;
-
+    float:right;
+    margin-right: 1.5rem
   }
   p.copyrightss {
     display: inline;
-    margin-left: 38% !important;
+    margin-left: none !important;
 }
 }
 
@@ -442,7 +460,3 @@ li.partnericons{
   margin-right: 2rem;
 }
 
-p.introtoicons {
-    display: inline;
-    margin-left: 7%;
-}
